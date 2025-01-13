@@ -1,1 +1,174 @@
+/* Base styles */
+:root {
+  --primary-yellow: #EAB308;
+  --hover-yellow: #CA8A04;
+  --background-white: #FFFFFF;
+  --text-dark: #1F2937;
+  --gray-light: #F3F4F6;
+  --gray-medium: #9CA3AF;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --transition-speed: 0.3s;
+}
 
+/* Global styles */
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  color: var(--text-dark);
+  line-height: 1.5;
+  background-color: var(--background-white);
+}
+
+/* Header styles */
+header.bg-yellow-500 {
+  background: var(--primary-yellow);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  transition: all var(--transition-speed) ease-in-out;
+}
+
+header.bg-yellow-500:hover {
+  background: var(--hover-yellow);
+}
+
+/* Card grid styles */
+.grid {
+  transition: all var(--transition-speed) ease-in-out;
+}
+
+/* Card styles */
+.card {
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+  border: 1px solid var(--gray-light);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px var(--shadow-color);
+}
+
+.card-title {
+  color: var(--text-dark);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+/* Step indicator styles */
+.step-indicator {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: var(--gray-light);
+  border-radius: 0.5rem;
+}
+
+.step-number {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-right: 1rem;
+  font-weight: 600;
+  transition: all var(--transition-speed) ease-in-out;
+}
+
+.step-active {
+  background: var(--primary-yellow);
+  color: white;
+}
+
+.step-completed {
+  background: var(--gray-medium);
+  color: white;
+}
+
+/* Button styles */
+button {
+  transition: all var(--transition-speed) ease-in-out;
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Footer styles */
+footer {
+  background: var(--gray-light);
+  margin-top: auto;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+  
+  header .container {
+    padding: 0.75rem 1rem;
+  }
+  
+  .grid {
+    gap: 1rem;
+  }
+  
+  .card {
+    margin-bottom: 1rem;
+  }
+  
+  .step-indicator {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .step-number {
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.grid > * {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--gray-light);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gray-medium);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-yellow);
+}
