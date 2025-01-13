@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Button } from "/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "/components/ui/card"
 import { ArrowLeft, ArrowRight, Check } from 'lucide-react'
+import './App.css'
 
 // Sample data for DevOps projects
 const devOpsProjects = [
@@ -176,9 +177,9 @@ export default function DevOpsProjects() {
         {currentProject === null ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {devOpsProjects.map((project) => (
-              <Card key={project.id} className="cursor-pointer" onClick={() => handleProjectClick(project.id)}>
+              <Card key={project.id} className="card cursor-pointer hover:shadow-lg" onClick={() => handleProjectClick(project.id)}>
                 <CardHeader>
-                  <CardTitle>{project.title}</CardTitle>
+                  <CardTitle className="card-title">{project.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <CardDescription>{project.description}</CardDescription>
@@ -187,27 +188,43 @@ export default function DevOpsProjects() {
             ))}
           </div>
         ) : (
-          <div>
-            <Button variant="outline" onClick={handleBackToProjects} className="mb-4">
+          <div className="project-detail">
+            <Button variant="outline" onClick={handleBackToProjects} className="mb-4 hover:bg-yellow-50">
               <ArrowLeft className="mr-2 h-4 w-4" /> Back to all projects
             </Button>
-            <h2 className="text-3xl font-bold mb-2">{devOpsProjects[currentProject - 1].title}</h2>
-            <div className="mb-4">
+            <h2 className="text-3xl font-bold mb-6">{devOpsProjects[currentProject - 1].title}</h2>
+            <div className="mb-8">
               {devOpsProjects[currentProject - 1].steps.map((step, index) => (
-                <div key={index} className="flex items-center mb-2">
-                  <div className={`w-6 h-6 rounded-full flex items-center justify-center ${index === currentStep ? 'bg-yellow-500 text-white' : index < currentStep ? 'bg-gray-300 text-gray-600' : 'bg-white border-2 border-gray-300'}`}>
-                    {index === currentStep ? <ArrowRight className="h-4 w-4" /> : index < currentStep ? <Check className="h-4 w-4" /> : index + 1}
+                <div key={index} className="step-indicator">
+                  <div className={`step-number ${index === currentStep ? 'step-active' : index < currentStep ? 'step-completed' : ''}`}>
+                    {index === currentStep ? (
+                      <ArrowRight className="h-4 w-4" />
+                    ) : index < currentStep ? (
+                      <Check className="h-4 w-4" />
+                    ) : (
+                      index + 1
+                    )}
                   </div>
-                  <p className={`ml-2 ${index === currentStep ? 'font-bold' : ''}`}>{step}</p>
+                  <p className={`${index === currentStep ? 'font-bold' : ''}`}>{step}</p>
                 </div>
               ))}
             </div>
-            <div className="flex justify-between">
-              <Button variant="outline" onClick={handlePreviousStep} disabled={currentStep === 0}>
-                Previous
+            <div className="flex justify-between mt-8">
+              <Button 
+                variant="outline" 
+                onClick={handlePreviousStep} 
+                disabled={currentStep === 0}
+                className="hover:bg-yellow-50"
+              >
+                <ArrowLeft className="mr-2 h-4 w-4" /> Previous
               </Button>
-              <Button variant="outline" onClick={handleNextStep} disabled={currentStep === devOpsProjects[currentProject - 1].steps.length - 1}>
-                Next
+              <Button 
+                variant="outline" 
+                onClick={handleNextStep} 
+                disabled={currentStep === devOpsProjects[currentProject - 1].steps.length - 1}
+                className="hover:bg-yellow-50"
+              >
+                Next <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </div>
           </div>
@@ -215,8 +232,8 @@ export default function DevOpsProjects() {
       </main>
 
       <footer className="bg-gray-100 mt-8">
-        <div className="container mx-auto px-4 py-6 text-center">
-          <p>&copy; 2023 DevOps Projects. All rights reserved.</p>
+        <div className="container mx-auto px-4 py-6 text-center text-gray-600">
+          <p>&copy; {new Date().getFullYear()} DevOps Projects. All rights reserved.</p>
         </div>
       </footer>
     </div>
